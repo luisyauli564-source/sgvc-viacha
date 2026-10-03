@@ -1,0 +1,33 @@
+digraph ER {
+  rankdir=LR; fontname="DejaVu Sans"; nodesep=0.35; ranksep=0.9; pad=0.2;
+  node [shape=plaintext fontname="DejaVu Sans" fontsize=10];
+  edge [fontname="DejaVu Sans" fontsize=9 color="#444444" arrowsize=0.7];
+
+  estado_usuario [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#9bb7d4"><B>estado_usuario</B></TD></TR><TR><TD ALIGN="LEFT">PK id_estado_usuario</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR></TABLE>>];
+  permiso [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#9bb7d4"><B>permiso</B></TD></TR><TR><TD ALIGN="LEFT">PK id_permiso</TD></TR><TR><TD ALIGN="LEFT">codigo</TD></TR><TR><TD ALIGN="LEFT">descripcion</TD></TR></TABLE>>];
+  rol [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#9bb7d4"><B>rol</B></TD></TR><TR><TD ALIGN="LEFT">PK id_rol</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR></TABLE>>];
+  rol_permiso [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#cfd8e3"><B>rol_permiso</B></TD></TR><TR><TD ALIGN="LEFT">PK,FK id_rol</TD></TR><TR><TD ALIGN="LEFT">PK,FK id_permiso</TD></TR></TABLE>>];
+  usuario [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#9bb7d4"><B>usuario</B></TD></TR><TR><TD ALIGN="LEFT">PK id_usuario</TD></TR><TR><TD ALIGN="LEFT">username</TD></TR><TR><TD ALIGN="LEFT">password_hash</TD></TR><TR><TD ALIGN="LEFT">email</TD></TR><TR><TD ALIGN="LEFT">FK id_rol</TD></TR><TR><TD ALIGN="LEFT">FK id_estado_usuario</TD></TR><TR><TD ALIGN="LEFT">fecha_creacion</TD></TR></TABLE>>];
+  sesion [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#9bb7d4"><B>sesion</B></TD></TR><TR><TD ALIGN="LEFT">PK id_sesion</TD></TR><TR><TD ALIGN="LEFT">token</TD></TR><TR><TD ALIGN="LEFT">FK id_usuario</TD></TR><TR><TD ALIGN="LEFT">fecha_inicio</TD></TR><TR><TD ALIGN="LEFT">fecha_expiracion</TD></TR><TR><TD ALIGN="LEFT">ip_origen</TD></TR></TABLE>>];
+  contrato [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#e8b273"><B>contrato</B></TD></TR><TR><TD ALIGN="LEFT">PK id_contrato</TD></TR><TR><TD ALIGN="LEFT">codigo</TD></TR><TR><TD ALIGN="LEFT">objeto</TD></TR><TR><TD ALIGN="LEFT">monto</TD></TR><TR><TD ALIGN="LEFT">fecha_inicio / fecha_fin</TD></TR><TR><TD ALIGN="LEFT">FK id_proveedor</TD></TR><TR><TD ALIGN="LEFT">FK id_unidad</TD></TR><TR><TD ALIGN="LEFT">FK id_estado_contrato</TD></TR><TR><TD ALIGN="LEFT">FK id_responsable</TD></TR><TR><TD ALIGN="LEFT">FK id_contrato_origen</TD></TR></TABLE>>];
+  estado_contrato [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#e8b273"><B>estado_contrato</B></TD></TR><TR><TD ALIGN="LEFT">PK id_estado_contrato</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR><TR><TD ALIGN="LEFT">descripcion</TD></TR></TABLE>>];
+  proveedor [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#e8b273"><B>proveedor</B></TD></TR><TR><TD ALIGN="LEFT">PK id_proveedor</TD></TR><TR><TD ALIGN="LEFT">razon_social</TD></TR><TR><TD ALIGN="LEFT">nit</TD></TR><TR><TD ALIGN="LEFT">email / telefono</TD></TR></TABLE>>];
+  unidad_organizacional [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#e8b273"><B>unidad_organizacional</B></TD></TR><TR><TD ALIGN="LEFT">PK id_unidad</TD></TR><TR><TD ALIGN="LEFT">nombre</TD></TR></TABLE>>];
+  documento_contrato [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#e8b273"><B>documento_contrato</B></TD></TR><TR><TD ALIGN="LEFT">PK id_documento</TD></TR><TR><TD ALIGN="LEFT">FK id_contrato</TD></TR><TR><TD ALIGN="LEFT">FK id_usuario</TD></TR><TR><TD ALIGN="LEFT">nombre_archivo / ruta</TD></TR><TR><TD ALIGN="LEFT">fecha_subida</TD></TR></TABLE>>];
+  alerta [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3"><TR><TD BGCOLOR="#e8b273"><B>alerta</B></TD></TR><TR><TD ALIGN="LEFT">PK id_alerta</TD></TR><TR><TD ALIGN="LEFT">FK id_contrato</TD></TR><TR><TD ALIGN="LEFT">FK id_usuario</TD></TR><TR><TD ALIGN="LEFT">dias_anticipacion</TD></TR><TR><TD ALIGN="LEFT">fecha_programada</TD></TR><TR><TD ALIGN="LEFT">canal / estado / fecha_envio</TD></TR></TABLE>>];
+
+  rol_permiso -> rol [label="N:1"];
+  rol_permiso -> permiso [label="N:1"];
+  usuario -> rol [label="N:1"];
+  usuario -> estado_usuario [label="N:1"];
+  sesion -> usuario [label="N:1"];
+  contrato -> proveedor [label="N:1"];
+  contrato -> unidad_organizacional [label="N:1"];
+  contrato -> estado_contrato [label="N:1"];
+  contrato -> usuario [label="responsable N:1"];
+  contrato -> contrato [label="renueva a (0..1)"];
+  documento_contrato -> contrato [label="N:1"];
+  documento_contrato -> usuario [label="N:1"];
+  alerta -> contrato [label="N:1"];
+  alerta -> usuario [label="N:1"];
+}
