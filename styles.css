@@ -1,0 +1,65 @@
+:root{
+  --bg:#f4f6f8; --card:#fff; --ink:#1c2733; --muted:#5b6b7a; --line:#dde3e9;
+  --brand:#14507a; --brand-2:#0d3a58;
+  --ok:#1f7a45; --ok-bg:#e3f4ea;
+  --warn:#8a5a00; --warn-bg:#fff1cf;
+  --crit:#a8420f; --crit-bg:#ffe3d3;
+  --bad:#a11d2b; --bad-bg:#fde0e3;
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:15px}
+.topbar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;background:var(--brand-2);color:#fff;padding:12px 24px}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:40px;height:40px;border-radius:8px;background:#fff;color:var(--brand-2);display:grid;place-items:center;font-weight:700}
+.brand h1{font-size:17px;margin:0}
+.brand p{margin:2px 0 0;font-size:13px;opacity:.8}
+.role{font-size:13px;display:flex;align-items:center;gap:8px}
+.role select{padding:6px 8px;border-radius:6px;border:0}
+main{max-width:1280px;margin:0 auto;padding:20px 24px 40px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-left-width:5px;border-radius:8px;padding:12px 14px;cursor:pointer;text-align:left;font:inherit;color:inherit}
+.kpi b{display:block;font-size:26px;line-height:1.1}
+.kpi span{font-size:13px;color:var(--muted)}
+.kpi.k-v{border-left-color:var(--ok)}.kpi.k-p{border-left-color:#d49a00}.kpi.k-c{border-left-color:#d4590f}.kpi.k-x{border-left-color:var(--bad)}
+.kpi:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #7fb3dd;outline-offset:2px}
+.banner{background:var(--warn-bg);border:1px solid #e8c766;color:#5e3d00;border-radius:8px;padding:10px 14px;margin-bottom:16px}
+.banner.rojo{background:var(--bad-bg);border-color:#e9a1aa;color:#6e121d}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px}
+.panel h2{margin:0 0 12px;font-size:16px}
+.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:12px}
+.filters label{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--muted)}
+input,select{padding:8px;border:1px solid var(--line);border-radius:6px;font:inherit;color:var(--ink);background:#fff}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th{text-align:left;font-size:12px;color:var(--muted);border-bottom:2px solid var(--line);padding:8px 6px;white-space:nowrap}
+td{padding:9px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+tr.f-p td:first-child{box-shadow:inset 4px 0 #d49a00}
+tr.f-c td:first-child{box-shadow:inset 4px 0 #d4590f}
+tr.f-x td:first-child{box-shadow:inset 4px 0 var(--bad)}
+.badge{display:inline-block;padding:2px 9px;border-radius:99px;font-size:12px;font-weight:600;white-space:nowrap}
+.b-v{background:var(--ok-bg);color:var(--ok)}.b-p{background:var(--warn-bg);color:var(--warn)}
+.b-c{background:var(--crit-bg);color:var(--crit)}.b-x{background:var(--bad-bg);color:var(--bad)}
+button{font:inherit;cursor:pointer}
+.link{background:none;border:0;color:var(--brand);text-decoration:underline;padding:0}
+.vacio{padding:16px;color:var(--muted)}
+.nota{font-size:12px;color:var(--muted);margin:10px 0 0}
+.chat{position:sticky;top:12px;display:flex;flex-direction:column;gap:10px}
+.log{height:310px;overflow:auto;display:flex;flex-direction:column;gap:8px;background:var(--bg);border-radius:8px;padding:10px}
+.m{max-width:90%;padding:8px 10px;border-radius:10px;font-size:13.5px;line-height:1.4;white-space:pre-line}
+.m.bot{background:#fff;border:1px solid var(--line);align-self:flex-start}
+.m.user{background:var(--brand);color:#fff;align-self:flex-end}
+.sugeridas{display:flex;flex-wrap:wrap;gap:6px}
+.sugeridas button{border:1px solid var(--line);background:#fff;border-radius:99px;padding:4px 10px;font-size:12px;color:var(--brand)}
+.chat-form{display:flex;gap:6px}
+.chat-form input{flex:1;min-width:0}
+.chat-form button{background:var(--brand);color:#fff;border:0;border-radius:6px;padding:0 14px}
+dialog{border:0;border-radius:10px;padding:20px;max-width:440px;width:92%;box-shadow:0 10px 40px #0004}
+dialog::backdrop{background:#0006}
+.historial{padding-left:18px;font-size:13.5px}
+dialog button{background:var(--brand);color:#fff;border:0;border-radius:6px;padding:8px 14px}
+@media (max-width:900px){
+  .layout{grid-template-columns:1fr}.chat{position:static}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .filters{grid-template-columns:1fr 1fr}
+}
